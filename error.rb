@@ -12,7 +12,7 @@ class InvalidCommandError < StandardError
   end
 end
 
-class PlacementRequiredError
+class PlacementRequiredError < StandardError
   attr_reader :message
   def message
     "Must place robot on the board first!"
