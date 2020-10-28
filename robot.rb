@@ -1,10 +1,10 @@
 class BenderBendingRodriguez
 
-  attr_accessor :position, :facing
+  attr_accessor :x_axis, :y_axis, :facing
   
-  def initialize(x, y, facing)
-    @x_axis = x
-    @y_axis = y
-    @facing = facing
+  def initialize(obj)
+    @x_axis = obj[:x]
+    @y_axis = obj[:y]
+    @facing = obj[:bearing]
   end
 end

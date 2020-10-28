@@ -9,3 +9,9 @@ class InvalidCommandError < StandardError
 		"Invalid command! check the instructions and try again"
 	end
 end
+
+class PlacementRequiredError
+  def message
+    "Must place robot on the board first!"
+  end
+end
