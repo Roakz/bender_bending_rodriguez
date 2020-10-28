@@ -8,7 +8,8 @@ class BenderBendingRodriguezTests < Minitest::Test
 
   def setup  
     @gameboard = GameBoard.new.gameboard
-    @valid_bender = BenderBendingRodriguez.new({:x => 1, :y => 4, :bearing => "NORTH"})
+    @valid_bender = BenderBendingRodriguez.new()
+    @valid_bender.place_bender({:x => 1,:y => 4,:bearing => "NORTH"})
     @command_validator = CommandValidator.new
   end
 
@@ -50,7 +51,14 @@ class BenderBendingRodriguezTests < Minitest::Test
     assert_equal "NORTH", @valid_bender.facing
   end
 
-  def test_movement_must_be_valid
+  def test_bender_reports_as_expected
+    assert_equal "Your coordinates captain! X => 1, Y => 4, Facing => NORTH", @valid_bender.report
+  end
+
+  def test_movement_must_raise_when_not_valid
+    # assert_raises InvalidMovementError do 
+    #   @gameboard.validate_movement(@valid_bender)
+    # end
     skip
   end
 end
