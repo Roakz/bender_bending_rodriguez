@@ -45,7 +45,7 @@ loop do
   	puts "Instructions Go here!"
   when "Commands"
   	command_line = true
-  when "Exit"
+  when "EXIT"
   	exit
   end
   
