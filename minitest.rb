@@ -13,9 +13,18 @@ class BenderBendingRodriguezTests < Minitest::Test
    @gameboard.each {|row| assert_equal 5, row.length }
   end
 
+  def test_invalid_command_throws_error
+    skip
+  end
+
   def test_placement_must_be_valid
-    assert_raises InvalidPlacementError do
-      @invalid_bender = BenderBendingRodriguez.new(6, 4, "north")
-    end
+    # assert_raises InvalidPlacementError do
+    #   @gameboard.validate_placement("PLACE 3,6,NORTH")
+    # end
+    skip
+  end
+
+  def test_movement_must_be_valid
+    skip
   end
 end
