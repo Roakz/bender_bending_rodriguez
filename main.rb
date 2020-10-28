@@ -4,13 +4,6 @@ require_relative 'command_validator'
 require_relative 'robot'
 require_relative 'gameboard'
 
-prompt = TTY::Prompt.new
-gameboard = GameBoard.new
-command_validator = CommandValidator.new
-bender = nil 
-place = false
-command_line = false
-
 def deconstruct_command(command)
 	positions = command.split[1]
   {
@@ -20,50 +13,63 @@ def deconstruct_command(command)
 	}
 end
 
-def place(command, bender)
-	if ! bender 
-		placement_obj = deconstruct_command(command)
-		bender = BenderBendingRodriguez.new(placement_obj)
-	end
-	gameboard.validate_placement(placement_obj)
+def place_action(validated_command, bender)
+  placement_obj = deconstruct_command(validated_command)
+  bender.place_bender(placement_obj)
 end
 
-def command_allocator(command, bender)
-	case command
+def command_allocator(validated_command, bender)
+	case validated_command
 	when "MOVE"
     move_bender
 	when "LEFT"
     rotate_left
 	when "RIGHT"
     rotate_right
-	when command.match(/^PLACE [1-5],[1-5],(NORTH|EAST|SOUTH|WEST)$/)
-		place(command, bender)
+  else
+    place_action(validated_command, bender)
 	end
 end
 
-desired_action = prompt.select("Choose an action", %w(Instructions Commands Exit))
+prompt = TTY::Prompt.new
+gameboard = GameBoard.new
+command_validator = CommandValidator.new
+bender = nil 
 
-case desired_action
-when "Instructions"
-	puts "Instructions Go here!"
-when "Commands"
-	command_line = true
-when "Exit"
-	exit
-end
-
-if command_line
-	loop do	  
-	  begin
-	  	puts place ? "Enter your command" : "Enter your PLACE command to begin! < PLACE X,Y,FACING >"
-			command = gets.chomp
-			break if command == "EXIT"
-			command_validator.validate_command(command)
-	  rescue InvalidCommandError
-	  	puts InvalidCommandError.message
-	  	next
-		end
-			if !place raise PlacementRequiredError unless command.split[0] == "PLACE"
-			command_allocator(command.strip, bender)
-	end
+loop do
+  command_line = false
+  desired_action = prompt.select("Choose an action", %w(Instructions Commands Exit))
+  
+  case desired_action
+  when "Instructions"
+  	puts "Instructions Go here!"
+  when "Commands"
+  	command_line = true
+  when "Exit"
+  	exit
+  end
+  
+  if command_line
+  	loop do	  
+      begin
+  	  	puts bender && bender.placed ? "Enter your command" : "Enter your PLACE command to begin! < PLACE X,Y,FACING >"
+  		  command = gets.chomp
+  		  break if command == "EXIT"
+        command_validator.validate_command(command)
+        bender = BenderBendingRodriguez.new
+  	  rescue InvalidCommandError => error
+  	  	puts error.message
+  	  	next
+  	  end
+        if ! bender.placed
+          begin
+            raise PlacementRequiredError unless command.split[0] == "PLACE"
+          rescue PlacementRequiredError => error
+            puts error.message
+            next
+          end
+        end
+        command_allocator(command.strip, bender)
+  	end
+  end
 end

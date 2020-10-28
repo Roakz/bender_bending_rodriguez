@@ -25,7 +25,7 @@ class BenderBendingRodriguezTests < Minitest::Test
 
   def test_valid_command_doesnt_raise
     # Test automatically fails if an error is raised
-    @command_validator.validate_command("PLACE 4,5,NORTH")
+    @command_validator.validate_command("PLACE 4,3,NORTH")
     @command_validator.validate_command("MOVE")
   end
 
@@ -48,12 +48,6 @@ class BenderBendingRodriguezTests < Minitest::Test
     assert_equal 1, @valid_bender.x_axis
     assert_equal 4, @valid_bender.y_axis
     assert_equal "NORTH", @valid_bender.facing
-  end
-
-  def test_placement_must_be_valid
-    assert_raises InvalidPlacementError do
-      @gameboard.validate_placement("PLACE 3,6,NORTH")
-    end
   end
 
   def test_movement_must_be_valid
