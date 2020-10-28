@@ -52,7 +52,7 @@ class BenderBendingRodriguezTests < Minitest::Test
   end
 
   def test_bender_reports_as_expected
-    assert_equal "Your coordinates captain! X => 1, Y => 4, Facing => NORTH", @valid_bender.report
+    assert_output(/Your coordinates captain! X => 1, Y => 4, Facing => NORTH/) { @valid_bender.report }
   end
 
   def test_movement_must_raise_when_not_valid

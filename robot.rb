@@ -1,6 +1,6 @@
 class BenderBendingRodriguez
 
-  attr_accessor :x_axis, :y_axis, :facing, :place_bender, :placed
+  attr_accessor :x_axis, :y_axis, :facing, :place_bender, :placed, :report
   
   def initialize()
     @x_axis = nil
@@ -19,5 +19,7 @@ class BenderBendingRodriguez
     puts "Beep Boop, Bender is on the board."
   end
 
-
+  def report
+    puts "Your coordinates captain! X => #{@x_axis}, Y => #{@y_axis}, Facing => #{@facing}"
+  end
 end
