@@ -11,7 +11,9 @@ class GameBoard
                   ] 
       end
       
-      def validate_placement
+      def validate_placement(placement_object)
+        # check bounds of gameboard
+        # throw error if invalid be sure to rescue it the other end.
       end
   
       def validate_movement

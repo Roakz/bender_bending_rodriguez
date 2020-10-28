@@ -25,6 +25,7 @@ def place(command, bender)
 		placement_obj = deconstruct_command(command)
 		bender = BenderBendingRodriguez.new(placement_obj)
 	end
+	gameboard.validate_placement(placement_obj)
 end
 
 def command_allocator(command, bender)

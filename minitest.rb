@@ -51,10 +51,9 @@ class BenderBendingRodriguezTests < Minitest::Test
   end
 
   def test_placement_must_be_valid
-    # assert_raises InvalidPlacementError do
-    #   @gameboard.validate_placement("PLACE 3,6,NORTH")
-    # end
-    skip
+    assert_raises InvalidPlacementError do
+      @gameboard.validate_placement("PLACE 3,6,NORTH")
+    end
   end
 
   def test_movement_must_be_valid
