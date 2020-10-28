@@ -26,6 +26,8 @@ def command_allocator(validated_command, bender)
     rotate_left
 	when "RIGHT"
     rotate_right
+  when "REPORT"
+    bender.report
   else
     place_action(validated_command, bender)
 	end
@@ -56,7 +58,7 @@ loop do
   		  command = gets.chomp
   		  break if command == "EXIT"
         command_validator.validate_command(command)
-        bender = BenderBendingRodriguez.new
+        bender = BenderBendingRodriguez.new unless bender
   	  rescue InvalidCommandError => error
   	  	puts error.message
   	  	next
