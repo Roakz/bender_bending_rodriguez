@@ -1,7 +1,7 @@
 class InvalidPlacementError < StandardError
   attr_reader :message
   def message
-  	"Oh wait your serious... Let me laugh even harder!"
+  	"Invalid placement try again!"
   end
 end
 
@@ -16,5 +16,12 @@ class PlacementRequiredError
   attr_reader :message
   def message
     "Must place robot on the board first!"
+  end
+end
+
+class InvalidMovementError < StandardError
+  attr_reader :message 
+  def message
+	"Oh wait your serious... Let me laugh even harder! Try again!"
   end
 end
