@@ -46,7 +46,7 @@ def move_action(gameboard, bender)
     :y => bender.y_axis,
     :facing => bender.facing
   }
-  puts current_location_obj
+
   validated = gameboard.validate_movement(current_location_obj)
   if validated == false
     return
