@@ -1,6 +1,6 @@
 # Toy Robot Challenge
 
-This repository holds the toy robot coding challenge. I have comnpleted the challenge with vanilla ruby.
+This repository holds the toy robot coding challenge. I have completed the challenge with vanilla ruby.
 
 The challenge looks like this.
 
@@ -63,7 +63,7 @@ REPORT
 Output: 3, 3, NORTH
 ```
 
-I created a small cli resolution., The structure I went with was fairly object oriented. Creating several classes. Creating instances of them and calling there functions/passing them around.
+I created a small CLI resolution. The structure I went with was fairly object oriented. Creating several classes. Creating instances of them and calling there functions/passing them around.
 
 ---
 
