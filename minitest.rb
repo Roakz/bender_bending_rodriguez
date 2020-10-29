@@ -58,4 +58,11 @@ class BenderBendingRodriguezTests < Minitest::Test
   def test_movement_must_raise_when_not_valid
     assert_output(/Oh wait your serious... Let me laugh even harder! Try again!/) {@gameboard.validate_movement(:x => 0, :y => 0, :facing => "WEST")}
   end
+
+  def test_rotation_changes_orientation
+    @valid_bender.rotate_left
+    assert_equal "WEST", @valid_bender.facing
+    @valid_bender.rotate_right
+    assert_equal "NORTH", @valid_bender.facing
+  end 
 end
