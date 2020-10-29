@@ -17,24 +17,22 @@ def determine_y_axis_for_move(placement_obj, current_location_obj)
   y = current_location_obj[:y].to_i
   if current_location_obj[:facing] == "NORTH"
     placement_obj[:y] = y + 1
-  elsif placement_obj[:facing] == "SOUTH"
+  elsif current_location_obj[:facing] == "SOUTH"
   placement_obj[:y] = y - 1
   else
   placement_obj[:y] = y
   end
-  return placement_obj
 end
 
 def determine_x_axis_for_move(placement_obj, current_location_obj)
   x = current_location_obj[:x].to_i
   if current_location_obj[:facing] == "EAST"
     placement_obj[:x] = x + 1
-  elsif placement_obj[:facing] == "WEST"
+  elsif current_location_obj[:facing] == "WEST"
   placement_obj[:x] = x - 1
   else
   placement_obj[:x] = x
   end
-  return placement_obj
 end
 
 def place_action(validated_command, bender)
@@ -48,6 +46,7 @@ def move_action(gameboard, bender)
     :y => bender.y_axis,
     :facing => bender.facing
   }
+
   validated = gameboard.validate_movement(current_location_obj)
   if validated == false
     return
@@ -65,9 +64,9 @@ def command_allocator(validated_command, bender, gameboard)
 	when "MOVE"
     move_action(gameboard, bender)
 	when "LEFT"
-    rotate_left
+    bender.rotate_left
 	when "RIGHT"
-    rotate_right
+    bender.rotate_right
   when "REPORT"
     bender.report
   else

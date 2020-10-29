@@ -18,13 +18,13 @@ class GameBoard
         @x = current_location_obj[:x].to_i
         @result = case current_location_obj[:facing]
         when "NORTH"
-          (0...4).include?(@flipped_y - 1)
+          [0,1,2,3,4].include?(@flipped_y - 1)
         when "EAST"
-          (0...4).include?(@x + 1)
+          [0,1,2,3,4].include?(@x + 1)
         when "SOUTH"
-          (0...4).include?(@flipped_y + 1)
+          [1,2,3,4].include?(@flipped_y + 1)
         when "WEST"
-          (0...4).include?(@x - 1)
+          [1,2,3,4].include?(@x - 1)
         end
         if @result == false
           begin
