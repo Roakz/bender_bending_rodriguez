@@ -15,9 +15,9 @@ class GameBoard
       when "EAST"
         [0,1,2,3,4].include?(@x + 1)
       when "SOUTH"
-        [1,2,3,4].include?(@flipped_y + 1)
+        [0,1,2,3,4].include?(@flipped_y + 1)
       when "WEST"
-        [1,2,3,4].include?(@x - 1)
+        [0,1,2,3,4].include?(@x - 1)
       end
 
       if @result == false
