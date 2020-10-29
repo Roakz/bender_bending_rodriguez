@@ -75,11 +75,11 @@ The dispatch controller is the main controller of the application. It takes care
 
 ### Gameboard
 
-The gameboard was created for gameboard specific logic. ATN This basically just validates movements before they can occur. TO ensure the robot is in bounds.
+The gameboard was created for gameboard specific logic. ATM This basically just validates movements before they can occur to ensure the robot is in bounds.
 
 ### Robot
 
-The robot class, modelled on Bender Bending Rodriguez the famous futurama robot, Is keeping track of Bender and where he is at / which direction he is facing. It also takes care of if Bender was initially placed and provides benders reporting functionality.
+The robot class, modelled on Bender Bending Rodriguez the famous futurama robot, is keeping track of Bender and where he is at / which direction he is facing. It also takes care of if Bender was initially placed and provides benders reporting functionality.
 
 ### CommandValidator
 
