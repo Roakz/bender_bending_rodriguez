@@ -17,7 +17,18 @@ loop do
   
   case desired_action
   when "Instructions"
-  	puts "Instructions Go here!"
+    puts "INSTRUCTIONS\n
+          - Leave caps on when in the command line to ensure valid commands\n
+          - EXIT will bring you back ot the main menu\n
+          - Choose a number from 1-4 for both your x and y axis and either NORTH | EAST | SOUTH | WEST\n
+          - A valid PLACE command looks like this exactly(Where x and y are numbers from 0-4): PLACE X,Y,NORTH\n
+          - MOVE will move in the direction you are facing by 1 increment towards the tables edge.\n
+          - LEFT will move your orientation to the left i.e NORTH becomes WEST\n
+          - RIGHT will nove your orientation to the right i.e NORTH becomes EAST\n
+          - PLACE can be used at any time your in the command line. Simply run the command again\n
+          - REPORT will show your current COORD's \n
+          - Bender doesnt like being told to jump! don't take offence!"
+          
   when "Commands"
   	command_line = true
   when "Exit"
