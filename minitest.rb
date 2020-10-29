@@ -7,15 +7,15 @@ require_relative "error"
 class BenderBendingRodriguezTests < Minitest::Test
 
   def setup  
-    @gameboard = GameBoard.new.gameboard
+    @gameboard = GameBoard.new
     @valid_bender = BenderBendingRodriguez.new()
     @valid_bender.place_bender({:x => 1,:y => 4,:bearing => "NORTH"})
     @command_validator = CommandValidator.new
   end
 
   def test_gameboard_size_equals_5x5
-   assert_equal 5, @gameboard.length
-   @gameboard.each {|row| assert_equal 5, row.length }
+   assert_equal 5, @gameboard.gameboard.length
+   @gameboard.gameboard.each {|row| assert_equal 5, row.length }
   end
 
   def test_invalid_basic_command_throws_error
@@ -56,9 +56,6 @@ class BenderBendingRodriguezTests < Minitest::Test
   end
 
   def test_movement_must_raise_when_not_valid
-    # assert_raises InvalidMovementError do 
-    #   @gameboard.validate_movement(@valid_bender)
-    # end
-    skip
+    assert_output(/Oh wait your serious... Let me laugh even harder! Try again!/) {@gameboard.validate_movement(:x => 0, :y => 0, :facing => "WEST")}
   end
 end
