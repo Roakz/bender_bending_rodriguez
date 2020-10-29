@@ -12,11 +12,11 @@ class BenderBendingRodriguez
   def place_bender(placement_object)
     if !@placed 
       @placed = true
+      puts "Beep Boop, Bender is on the board."
     end
     @x_axis = placement_object[:x]
     @y_axis = placement_object[:y]
     @facing = placement_object[:bearing]
-    puts "Beep Boop, Bender is on the board."
   end
 
   def report

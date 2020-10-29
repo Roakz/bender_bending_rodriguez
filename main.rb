@@ -13,15 +13,57 @@ def deconstruct_command(command)
 	}
 end
 
+def determine_y_axis_for_move(placement_obj, current_location_obj)
+  y = current_location_obj[:y].to_i
+  if current_location_obj[:facing] == "NORTH"
+    placement_obj[:y] = y + 1
+  elsif placement_obj[:facing] == "SOUTH"
+  placement_obj[:y] = y - 1
+  else
+  placement_obj[:y] = y
+  end
+  return placement_obj
+end
+
+def determine_x_axis_for_move(placement_obj, current_location_obj)
+  x = current_location_obj[:x].to_i
+  if current_location_obj[:facing] == "EAST"
+    placement_obj[:x] = x + 1
+  elsif placement_obj[:facing] == "WEST"
+  placement_obj[:x] = x - 1
+  else
+  placement_obj[:x] = x
+  end
+  return placement_obj
+end
+
 def place_action(validated_command, bender)
   placement_obj = deconstruct_command(validated_command)
   bender.place_bender(placement_obj)
 end
 
-def command_allocator(validated_command, bender)
+def move_action(gameboard, bender)
+  current_location_obj = {
+    :x => bender.x_axis,
+    :y => bender.y_axis,
+    :facing => bender.facing
+  }
+  validated = gameboard.validate_movement(current_location_obj)
+  if validated == false
+    return
+  end
+  placement_obj = {
+    :bearing => current_location_obj[:facing]
+    }
+  determine_y_axis_for_move(placement_obj, current_location_obj)
+  determine_x_axis_for_move(placement_obj, current_location_obj)
+  bender.place_bender(placement_obj)
+end
+
+def command_allocator(validated_command, bender, gameboard)
 	case validated_command
 	when "MOVE"
-    move_bender
+    move_action(gameboard, bender)
 	when "LEFT"
     rotate_left
 	when "RIGHT"
@@ -33,14 +75,14 @@ def command_allocator(validated_command, bender)
 	end
 end
 
-prompt = TTY::Prompt.new
-gameboard = GameBoard.new
-command_validator = CommandValidator.new
+PROMPT = TTY::Prompt.new
+GAMEBOARD = GameBoard.new
+COMMAND_VALIDATOR = CommandValidator.new
 bender = nil 
 
 loop do
   command_line = false
-  desired_action = prompt.select("Choose an action", %w(Instructions Commands Exit))
+  desired_action = PROMPT.select("Choose an action", %w(Instructions Commands Exit))
   
   case desired_action
   when "Instructions"
@@ -57,7 +99,7 @@ loop do
   	  	puts bender && bender.placed ? "Enter your command" : "Enter your PLACE command to begin! < PLACE X,Y,FACING >"
   		  command = gets.chomp
   		  break if command == "EXIT"
-        command_validator.validate_command(command)
+        COMMAND_VALIDATOR.validate_command(command)
         bender = BenderBendingRodriguez.new unless bender
   	  rescue InvalidCommandError => error
   	  	puts error.message
@@ -71,7 +113,7 @@ loop do
             next
           end
         end
-        command_allocator(command.strip, bender)
+        command_allocator(command.strip, bender, GAMEBOARD)
   	end
   end
 end
