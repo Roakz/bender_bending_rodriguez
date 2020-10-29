@@ -12,12 +12,7 @@ class BenderBendingRodriguezTests < Minitest::Test
     @valid_bender.place_bender({:x => 1,:y => 4,:bearing => "NORTH"})
     @command_validator = CommandValidator.new
   end
-
-  def test_gameboard_size_equals_5x5
-   assert_equal 5, @gameboard.gameboard.length
-   @gameboard.gameboard.each {|row| assert_equal 5, row.length }
-  end
-
+  
   def test_invalid_basic_command_throws_error
     assert_raises InvalidCommandError do
       @command_validator.validate_command("TEST")
